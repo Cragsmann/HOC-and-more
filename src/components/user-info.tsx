@@ -15,14 +15,20 @@ type UserInfoProps = {
   userId: number;
 };
 
-export const UserInfo: React.FC<UserInfoProps> = ({ userId }): JSX.Element => {
-  const user = useFetchData(async () => {
-    const response = await axios.get<UserType>(
-      `http://localhost:9090/users/${userId}`
-    );
-    return response.data;
-  });
+const fetchFromServer = (resourceUrl: string) => async () => {
+  const response = await axios.get<UserType>(resourceUrl);
+  return response.data;
+};
 
+const getFromLocalStorage = (key: string) => () => {
+  return localStorage.getItem(key);
+};
+
+export const UserInfo: React.FC<UserInfoProps> = ({ userId }): JSX.Element => {
+  const user = useFetchData(
+    fetchFromServer(`http://localhost:9090/users/${userId}`)
+  );
+  const message = useFetchData(getFromLocalStorage("test"));
   const { name, age, country, books } = user || {};
   return user ? (
     <>
@@ -33,6 +39,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({ userId }): JSX.Element => {
       <ul>
         {books && books.map((book: string) => <li key={book}> {book} </li>)}
       </ul>
+      <p>{message}</p>
     </>
   ) : (
     <h1>Loading...</h1>

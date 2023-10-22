@@ -118,7 +118,6 @@ const App: React.FC = () => {
       <hr />
       <BookInfoForm /> */}
       <UserInfo userId={1} />
-      <UserInfo userId={2} />
     </>
   );
 };
