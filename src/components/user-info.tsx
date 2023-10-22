@@ -1,3 +1,9 @@
+//import { useFetchCurrentUser } from "./hooks/fetchCurrentUser";
+import axios from "axios";
+import { useFetchResource } from "./hooks/fetchResource";
+import { useFetchUser } from "./hooks/fetchUser";
+import { useFetchData } from "./hooks/fetchData";
+
 export type UserType = {
   name: string;
   age: number;
@@ -6,10 +12,17 @@ export type UserType = {
 };
 
 type UserInfoProps = {
-  user?: UserType;
+  userId: number;
 };
 
-export const UserInfo: React.FC<UserInfoProps> = ({ user }): JSX.Element => {
+export const UserInfo: React.FC<UserInfoProps> = ({ userId }): JSX.Element => {
+  const user = useFetchData(async () => {
+    const response = await axios.get<UserType>(
+      `http://localhost:9090/users/${userId}`
+    );
+    return response.data;
+  });
+
   const { name, age, country, books } = user || {};
   return user ? (
     <>

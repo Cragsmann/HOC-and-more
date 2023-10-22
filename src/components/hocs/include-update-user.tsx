@@ -1,6 +1,6 @@
 import { ComponentType, useState, useEffect } from "react";
 import axios from "axios";
-import { UserType } from "./user-info";
+import { UserType } from "../user-info";
 
 export const includeUpdateUser = <P extends object>(
   Component: ComponentType<P>,

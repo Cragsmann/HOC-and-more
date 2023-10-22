@@ -97,10 +97,11 @@ import "./App.css";
 
 import React from "react";
 import { UserInfo } from "./components/user-info";
-import { includeUser } from "./components/include-user";
-import { UserInfoForm } from "./components/user-form";
+// import { includeUser } from "./components/hocs/include-user";
+// import { UserInfoForm } from "./components/user-form";
+// import { BookInfoForm } from "./components/book-form";
 
-const UserInfoWithLoader = includeUser(UserInfo, 3);
+//const UserInfoWithLoader = includeUser(UserInfo, 3);
 
 const App: React.FC = () => {
   // const user: UserType = {
@@ -113,7 +114,11 @@ const App: React.FC = () => {
   return (
     <>
       {/* <UserInfoWrapper /> */}
-      <UserInfoForm />
+      {/* <UserInfoForm />
+      <hr />
+      <BookInfoForm /> */}
+      <UserInfo userId={1} />
+      <UserInfo userId={2} />
     </>
   );
 };
